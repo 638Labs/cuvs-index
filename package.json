@@ -1,0 +1,34 @@
+{
+  "name": "cuvs-index",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Indexing and query engine built on 638Labs cuvs-node, an open-source Node.js binding for NVIDIA cuVS. Schema-driven GPU-accelerated vector search",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./adapters/memory": "./src/adapters/memory.js",
+    "./adapters/dynamodb": "./src/adapters/dynamodb.js",
+    "./adapters/mongodb": "./src/adapters/mongodb.js",
+    "./mock-cuvs": "./src/mock-cuvs.js"
+  },
+  "scripts": {
+    "test": "node --test tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/638Labs/cuvs-index.git"
+  },
+  "keywords": [
+    "nvidia",
+    "cuvs",
+    "gpu",
+    "vector-search",
+    "schema",
+    "query-engine",
+    "cagra",
+    "cuda",
+    "indexing"
+  ],
+  "author": "638Labs",
+  "license": "Apache-2.0"
+}

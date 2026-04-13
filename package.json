@@ -2,7 +2,7 @@
   "name": "cuvs-index",
   "version": "0.1.0",
   "type": "module",
-  "description": "Indexing and query engine built on 638Labs cuvs-node, an open-source Node.js binding for NVIDIA cuVS. Schema-driven GPU-accelerated vector search",
+  "description": "Opensource Indexing and query engine built on 638Labs cuvs-node, an open-source Node.js binding for NVIDIA cuVS. Schema-driven GPU-accelerated vector search",
   "main": "src/index.js",
   "exports": {
     ".": "./src/index.js",

@@ -1,6 +1,6 @@
 # cuvs-index
 
-Indexing and query engine built on NVIDIA cuVS - schema-driven GPU-accelerated vector search for Node.js.
+Opensource indexing and query engine built on NVIDIA cuVS - schema-driven GPU-accelerated vector search for Node.js.
 
 Built on [cuvs-node](https://github.com/638Labs/cuvs-node) by [638Labs](https://638labs.com), an open-source, native C++ Node.js bindings for [NVIDIA cuVS](https://developer.nvidia.com/cuvs). GPU-accelerated vector search, in-process, no Python required. 
 

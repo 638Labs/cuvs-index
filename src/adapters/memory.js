@@ -20,16 +20,36 @@ export function memoryAdapter() {
   }
 
   return {
-    async put(entity, record) {
-      if (!record || record.id == null) throw new Error('memoryAdapter.put: record.id is required');
-      table(entity).set(record.id, { ...record });
-      emit(entity, { kind: 'put', id: record.id, record });
+    async put(entity, idOrRecord, maybeRecord) {
+      let id;
+      let record;
+      if (maybeRecord !== undefined) {
+        id = idOrRecord;
+        if (!record && (maybeRecord == null || typeof maybeRecord !== 'object')) {
+          throw new Error('memoryAdapter.put: record must be an object');
+        }
+        record = { ...maybeRecord, id };
+      } else {
+        record = idOrRecord;
+        if (!record || record.id == null) {
+          throw new Error('memoryAdapter.put: record.id is required');
+        }
+        id = record.id;
+        record = { ...record };
+      }
+      table(entity).set(id, record);
+      emit(entity, { kind: 'put', id, record });
     },
     async get(entity, id) {
       return table(entity).get(id) ?? null;
     },
-    async scan(entity) {
-      return [...table(entity).values()];
+    async scan(entity, filter) {
+      const rows = [...table(entity).values()];
+      if (typeof filter === 'function') return rows.filter((r) => filter(r));
+      return rows;
+    },
+    async list(entity) {
+      return [...table(entity).keys()];
     },
     async delete(entity, id) {
       table(entity).delete(id);

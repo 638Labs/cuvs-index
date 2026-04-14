@@ -51,15 +51,21 @@ export function compileQuery(spec) {
 
       if (similar) {
         const hits = await vectorSearch(entity, similar);
-        const hitMap = new Map(hits.map((h) => [h.id, h.score]));
+        const hitMap = new Map(hits.map((h) => [h.id, h]));
         if (where) {
           candidates = candidates
             .filter((r) => hitMap.has(r.id))
-            .map((r) => ({ ...r, _score: hitMap.get(r.id) }));
+            .map((r) => {
+              const h = hitMap.get(r.id);
+              return { ...r, _score: h.score, _distance: h.distance };
+            });
         } else {
           const byId = new Map(candidates.map((r) => [r.id, r]));
           candidates = hits
-            .map((h) => byId.get(h.id) && { ...byId.get(h.id), _score: h.score })
+            .map((h) => {
+              const row = byId.get(h.id);
+              return row ? { ...row, _score: h.score, _distance: h.distance } : null;
+            })
             .filter(Boolean);
         }
         candidates.sort((a, b) => b._score - a._score);
